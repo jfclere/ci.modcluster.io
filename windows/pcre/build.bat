@@ -7,14 +7,13 @@ set MYTARGET="c:\Program Files (x86)"
 
 
 REM Build environment
-PATH=%PATH%;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build
+PATH=%PATH%;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build;C:\Program Files\Microsoft Visual Studio\2022\Community\Msbuild\Current\Bin
 
 call vcvars64
 
-mkdir %WORKSPACE%\target
-mkdir %WORKSPACE%\build
+mkdir %WORKSPACE%\pcre\build-64
 
-cd  %WORKSPACE%\build
+cd  %WORKSPACE%\pcre\build-64
 
 REM Note that some attributes cannot handle backslashes...
 REM SET WORKSPACEPOSSIX=%WORKSPACE:\=/%
@@ -31,6 +30,9 @@ cmake -G "Visual Studio 17 2022" ^
 -DCMAKE_INSTALL_ALWAYS=1 ^
 -DINSTALL_MSVC_PDB=ON ^
 -DCMAKE_INSTALL_PREFIX=%MYTARGET%\APR\ %SOURCES%/pcre
+
+
+MSBuild INSTALL.vcxproj -t:build -p:Configuration=Release
 
 REM -DCMAKE_INSTALL_PREFIX=%WORKSPACEPOSSIX%/target/ ..
 REM -DBZIP2_INCLUDE_DIR=%WORKSPACEPOSSIX%/bzip2/include ^

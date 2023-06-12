@@ -7,7 +7,7 @@ set MYTARGET="c:/Program Files (x86)"
 mkdir %WORKSPACE%\target\64
 mkdir %WORKSPACE%\build-64
 
-PATH=%PATH%;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build
+PATH=%PATH%;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build;C:\Program Files\Microsoft Visual Studio\2022\Community\Msbuild\Current\Bin
 
 call vcvars64
 
@@ -25,6 +25,11 @@ cmake -G "Visual Studio 17 2022" ^
 -DCMAKE_INSTALL_PREFIX=%MYTARGET%/APR ^
 -DPCRE_CFLAGS=-DHAVE_PCRE2 ^
 c:\Tools\httpd-asf
+
+cd c:\Tools\httpd-asf
+MSBuild libhttpd.vcxproj -t:build -p:Configuration=Release
+MSBuild httpd.vcxproj -t:build -p:Configuration=Release
+MSBuild INSTALL.vcxproj -t:build -p:Configuration=Release
 
 REM -DPCRE_LIBRARIES=%MYTARGET%/APR/lib/pcre2-8.lib ^
 REM -DPCRE_INCLUDE_DIR=%MYTARGET%/APR/include/ ^

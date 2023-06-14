@@ -24,6 +24,9 @@ cmake -G "Visual Studio 17 2022" ^
 -DAPR_LIBRARIES=%MYTARGET%/APR/lib/libapr-1.lib;%MYTARGET%/APR/lib/libaprapp-1.lib;%MYTARGET%/APR/lib/apr_ldap-1.lib;%MYTARGET%/APR/lib/libaprutil-1.lib ^
 -DCMAKE_INSTALL_PREFIX=%MYTARGET%/APR ^
 -DPCRE_CFLAGS=-DHAVE_PCRE2 ^
+-DOPENSSL_ROOT_DIR="C:/Program Files/OpenSSL" ^
+-DOPENSSL_LIBRARIES="C:/Program Files/OpenSSL/lib" ^
+-DOPENSSL_INCLUDE_DIR="C:/Program Files/OpenSSL/include" ^
 c:\Tools\httpd-asf
 
 cd c:\Tools\httpd-asf
@@ -38,7 +41,6 @@ REM -DCMAKE_C_FLAGS_RELWITHDEBINFO="/DWIN32 /D_WINDOWS /W3 /MD /Zi /O2 /Ob1 /DND
 
 REM -DCMAKE_C_FLAGS="/DWIN32 /D_WINDOWS /W3 /MD /Zi /O2 /Ob1 /DNDEBUG" ^
 
-REM -DOPENSSL_ROOT_DIR=%WORKSPACE_POSSIX%/dependencies/openssl ^
 REM -DLIBXML2_INCLUDE_DIR=%WORKSPACE_POSSIX%/dependencies/libxml2/include/libxml2/ ^
 REM -DLIBXML2_LIBRARIES=%WORKSPACE_POSSIX%/dependencies/libxml2/lib/libxml2.lib;%WORKSPACE_POSSIX%/dependencies/libxml2/lib/libxml2_a.lib;^
 REM %WORKSPACE_POSSIX%/dependencies/libxml2/lib/libxml2_a_dll.lib ^

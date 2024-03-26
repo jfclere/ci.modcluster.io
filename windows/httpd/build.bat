@@ -4,6 +4,10 @@ set WORKSPACE=c:\Tools\HTTPD
 set SOURCES=c:\Tools\SOURCES
 set MYTARGET="c:/Program Files (x86)"
 
+del /s /f /q %WORKSPACE%\target\64 
+del /s /f /q %WORKSPACE%\build-64
+
+
 mkdir %WORKSPACE%\target\64
 mkdir %WORKSPACE%\build-64
 
@@ -24,12 +28,12 @@ cmake -G "Visual Studio 17 2022" ^
 -DAPR_LIBRARIES=%MYTARGET%/APR/lib/libapr-1.lib;%MYTARGET%/APR/lib/libaprapp-1.lib;%MYTARGET%/APR/lib/apr_ldap-1.lib;%MYTARGET%/APR/lib/libaprutil-1.lib ^
 -DCMAKE_INSTALL_PREFIX=%MYTARGET%/APR ^
 -DPCRE_CFLAGS=-DHAVE_PCRE2 ^
--DOPENSSL_ROOT_DIR="C:/Program Files/OpenSSL" ^
--DOPENSSL_LIBRARIES="C:/Program Files/OpenSSL/lib" ^
+-DCMAKE_LIBRARY_PATH_FLAG="C:/Program Files/OpenSSL/bin" ^
+-DOPENSSL_LIBRARIES="C:/Program Files/OpenSSL/lib/libssl.lib;C:/Program Files/OpenSSL/lib/libcrypto.lib" ^
 -DOPENSSL_INCLUDE_DIR="C:/Program Files/OpenSSL/include" ^
 c:\Tools\httpd-asf
 
-cd c:\Tools\httpd-asf
+REM cd c:\Tools\httpd-asf
 MSBuild libhttpd.vcxproj -t:build -p:Configuration=Release
 MSBuild httpd.vcxproj -t:build -p:Configuration=Release
 MSBuild INSTALL.vcxproj -t:build -p:Configuration=Release

@@ -25,5 +25,9 @@ MSBuild ALL_BUILD.vcxproj -t:build -p:Configuration=Release
 
 REM install part
 copy lib\Release\* %MYTARGET%\lib
+del /s /f /q  %MYTARGET%\include\nghttp2
+mkdir  %MYTARGET%\include\nghttp2
+copy lib\includes\nghttp2\*  %MYTARGET%\include\nghttp2
+copy %SOURCES%\nghttp2\lib\includes\nghttp2\nghttp2.h  %MYTARGET%\include\nghttp2
 
 popd

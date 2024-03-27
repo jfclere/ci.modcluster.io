@@ -18,9 +18,12 @@ REM Note that some attributes cannot handle backslashes...
 SET WORKSPACEPOSSIX=%WORKSPACE:\=/%
 
 cmake -G "Visual Studio 17 2022" ^
-%SOURCES%/mod_h2
+%SOURCES%/nghttp2
 
 cd c:\Tools\HTTPD\cmakebuild
 MSBuild ALL_BUILD.vcxproj -t:build -p:Configuration=Release
+
+REM install part
+copy lib\Release\* %MYTARGET%\lib
 
 popd

@@ -25,7 +25,7 @@ cmake -G "Visual Studio 17 2022" ^
 -DAPRUTIL_INCLUDE_DIR=%MYTARGET%/include/ ^
 -DAPACHE_LIBRARY=%MYTARGET%/lib/libhttpd.lib ^
 -DPROXY_LIBRARY=%MYTARGET%/lib/mod_proxy.lib ^
-%SOURCES%/mod_proxy_cluster/native/
+%SOURCES%/mod_cluster/native/
 
 cd c:\Tools\HTTPD\cmakebuild
 MSBuild ALL_BUILD.vcxproj -t:build -p:Configuration=Release

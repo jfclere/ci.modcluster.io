@@ -11,9 +11,13 @@ del /s /f /q %WORKSPACE%\build-64
 mkdir %WORKSPACE%\target\64
 mkdir %WORKSPACE%\build-64
 
+goto next
+
 PATH=%PATH%;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build;C:\Program Files\Microsoft Visual Studio\2022\Community\Msbuild\Current\Bin
 
 call vcvars64
+
+:next
 
 cd %WORKSPACE%\build-64
 
@@ -31,7 +35,7 @@ cmake -G "Visual Studio 17 2022" ^
 -DCMAKE_LIBRARY_PATH_FLAG="C:/Program Files/OpenSSL/bin" ^
 -DOPENSSL_LIBRARIES="C:/Program Files/OpenSSL/lib/libssl.lib;C:/Program Files/OpenSSL/lib/libcrypto.lib" ^
 -DOPENSSL_INCLUDE_DIR="C:/Program Files/OpenSSL/include" ^
-c:\Tools\httpd-asf
+c:\Tools\SOURCES\httpd
 
 REM cd c:\Tools\httpd-asf
 MSBuild libhttpd.vcxproj -t:build -p:Configuration=Release

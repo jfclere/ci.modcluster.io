@@ -11,7 +11,7 @@ del /s /f /q %WORKSPACE%\build-64
 mkdir %WORKSPACE%\target\64
 mkdir %WORKSPACE%\build-64
 
-if not "x%PATH:CMake=%"=="x%PATH%" (
+if not "x%PATH:Studio=%"=="x%PATH%" (
   echo "Yes"
   goto next
 ) else (
@@ -20,7 +20,9 @@ if not "x%PATH:CMake=%"=="x%PATH%" (
 
 REM C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin
 REM C:\Tools\VS\2017b\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin
-PATH=%PATH%;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;C:\Tools\VS\2017b\VC\Auxiliary\Build;C:\Tools\VS\2017b\MSBuild\15.0\Bin
+REM PATH=%PATH%;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;C:\Tools\VS\2017b\VC\Auxiliary\Build;C:\Tools\VS\2017b\MSBuild\15.0\Bin
+REM cmake-3.31.5-windows-x86_64/bin
+PATH=C:\Tools\cmake-3.22.6-windows-x86_64/bin;%PATH%;C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\amd64;C:\Windows\Microsoft.NET\Framework64\v4.0.30319
 
 call vcvars64
 
@@ -32,9 +34,7 @@ REM CMake. Beware: Command must be shorter than 8191 chars...
 REM -DAPR_HAS_XLATE=ON ^
 REM cmake --trace-expand -G "Visual Studio 15 2017 Win64" ^
 
-SET CL=/D _WIN32_WINNT=0x0601 /D WINVER=0x0601
-
-cmake -G "Visual Studio 15 2017 Win64" ^
+cmake -G "Visual Studio 11" ^
 -DAPR_INCLUDE_DIR=%MYTARGET%/APR/include ^
 -DAPR_LIBRARIES=%MYTARGET%/APR/lib/libapr-1.lib;%MYTARGET%/APR/lib/libaprapp-1.lib;%MYTARGET%/APR/lib/apr_ldap-1.lib;%MYTARGET%/APR/lib/libaprutil-1.lib ^
 -DCMAKE_INSTALL_PREFIX=%MYTARGET%/APR ^

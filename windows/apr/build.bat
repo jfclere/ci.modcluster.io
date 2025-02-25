@@ -5,6 +5,8 @@ set WORKSPACE=c:\Tools\HTTPD
 set SOURCES=c:\Tools\SOURCES
 set MYTARGET="c:\Program Files (x86)"
 
+del /s /f /q %WORKSPACE%\target\64 
+del /s /f /q %WORKSPACE%\apr\build-64
 
 mkdir %WORKSPACE%\target\64
 mkdir %WORKSPACE%\apr\build-64
@@ -12,15 +14,18 @@ cd %WORKSPACE%\apr\build-64
 
 ver | findstr "10.0" &&  goto new
 
-PATH=C:\Tools\cmake-3.22.6-windows-x86_64/bin;C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\amd64;C:\Windows\Microsoft.NET\Framework64\v4.0.30319
+PATH=C:\Tools\cmake-3.22.6-windows-x86_64/bin;c:\cmsc\msvc\bin;%PATH%;C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\amd64;C:\Windows\Microsoft.NET\Framework64\v4.0.30319
 
 call vcvars64
-cmake -G "Visual Studio 11" ^
+cmake -G "NMake Makefiles" ^
 -DAPU_USE_EXPAT=OFF -DAPU_USE_LIBXML2=ON ^
 -DAPR_INSTALL_PRIVATE_H=ON ^
 -DCMAKE_INSTALL_PREFIX=%MYTARGET%/APR ^
 c:\Tools\SOURCES\apr
-goto next
+nmake
+nmake install
+
+goto end
 
 :new
 
@@ -37,6 +42,6 @@ cmake -G "Visual Studio 17 2022" ^
 c:\Tools\httpd-asf\srclib\apr
 cd c:\Tools\httpd-asf\srclib\apr
 
-:next
-
 MSBuild INSTALL.vcxproj -t:build -p:Configuration=Release
+
+end:

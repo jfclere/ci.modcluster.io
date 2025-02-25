@@ -11,6 +11,8 @@ del /s /f /q %WORKSPACE%\build-64
 mkdir %WORKSPACE%\target\64
 mkdir %WORKSPACE%\build-64
 
+cd %WORKSPACE%\build-64
+
 if not "x%PATH:Studio=%"=="x%PATH%" (
   echo "Yes"
   goto next
@@ -28,20 +30,20 @@ call vcvars64
 
 :next
 
-cd %WORKSPACE%\build-64
 
 REM CMake. Beware: Command must be shorter than 8191 chars...
 REM -DAPR_HAS_XLATE=ON ^
 REM cmake --trace-expand -G "Visual Studio 15 2017 Win64" ^
+REM -DPCRE_CFLAGS=-DHAVE_PCRE2 ^
 
-cmake -G "Visual Studio 11" ^
+REM cmake -G "Visual Studio 11" ^
+cmake -G "NMake Makefiles" ^
 -DAPR_INCLUDE_DIR=%MYTARGET%/APR/include ^
 -DAPR_LIBRARIES=%MYTARGET%/APR/lib/libapr-1.lib;%MYTARGET%/APR/lib/libaprapp-1.lib;%MYTARGET%/APR/lib/apr_ldap-1.lib;%MYTARGET%/APR/lib/libaprutil-1.lib ^
 -DCMAKE_INSTALL_PREFIX=%MYTARGET%/APR ^
--DPCRE_CFLAGS=-DHAVE_PCRE2 ^
--DCMAKE_LIBRARY_PATH_FLAG="C:/Program Files/OpenSSL/bin" ^
--DOPENSSL_LIBRARIES="C:/Program Files/OpenSSL/lib/libssl.lib;C:/Program Files/OpenSSL/lib/libcrypto.lib" ^
--DOPENSSL_INCLUDE_DIR="C:/Program Files/OpenSSL/include" ^
+-DCMAKE_LIBRARY_PATH_FLAG="C:/Program Files (x86)/APR/bin" ^
+-DOPENSSL_LIBRARIES="C:/Program Files (x86)/APR/lib/libssl.lib;C:/Program Files (x86)/APR/lib/libcrypto.lib" ^
+-DOPENSSL_INCLUDE_DIR="C:/Program Files (x86)/APR/include" ^
 c:\Tools\SOURCES\httpd
 
 MSBuild libhttpd.vcxproj -t:build -p:Configuration=Release

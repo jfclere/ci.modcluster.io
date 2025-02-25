@@ -20,10 +20,9 @@ PATH=%PATH%;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\
 
 call vcvars64
 
-cl
-
 cd %SOURCES%\openssl
 perl Configure --prefix=%MYTARGET%
+nmake clean
 nmake
 nmake install
 
